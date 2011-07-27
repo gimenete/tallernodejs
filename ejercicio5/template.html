@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Lista de tareas</title>
+	</head>
+	
+	<body>
+		<h1>Lista de tareas</h1>
+
+		<ul id='list'>
+		</ul>
+	
+		<form action="/add" method="POST" id="form">
+			<label for="text">Añadir una tarea:</label>
+			<input type="text" placeholder="Escribe el nombre de la tarea" autofocus name="text" size="60" id="text-input">
+			<button type="submit">Añadir</button>
+		</form>
+		
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+		<script src="/nowjs/now.js"></script>
+		<script>
+		$(document).ready(function() {
+
+			now.receiveRemove = function(id) {
+				$('#task-'+id).remove()
+			}
+			
+			now.receiveAdd = function(id, text) {
+				var li = $('<li></li>').attr('id', 'task-'+id)
+				li.append($('<span></span>').text(text))
+				li.append(' ')
+				var a = $('<a href="#">eliminar</a>')
+				a.click(function() {
+					now.distributeRemove(id)
+					return false
+				})
+				li.append(a)
+				$('#list').append(li)
+			}
+			
+			$('#form').submit(function() {
+				now.distributeAdd($("#text-input").val())
+				$("#text-input").val('')
+				return false
+			})
+		})
+		</script>
+	
+	</body>
+
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Lista de tareas</title>
+	</head>
+	
+	<body>
+
+		<h1>Lista de tareas</h1>
+
+		<ul>
+			<% for (var k in data) { %>
+				<li><%= data[k] %> <a href="/remove?id=<%= k %>">terminada</a></li>
+			<% } %>
+		</ul>
+	
+		<form action="/add" method="POST">
+			<label for="text">Añadir una tarea:</label>
+			<input type="text" placeholder="Escribe el nombre de la tarea" autofocus name="text" size="60">
+			<button type="submit">Añadir</button>
+		
+		</form>
+	
+	</body>
+
+</html>
